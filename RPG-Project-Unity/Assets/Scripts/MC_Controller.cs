@@ -6,6 +6,8 @@ public class MC_Controller : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
     public float speed = 3f;
+
+    Facing direction = Facing.DOWN;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +30,13 @@ public class MC_Controller : MonoBehaviour
       position.y += speed * vertical;
 
       rigidbody2d.MovePosition(position);
+    }
+
+    enum Facing
+    {
+      UP,
+      RIGHT,
+      DOWN,
+      LEFT
     }
 }
