@@ -5,7 +5,7 @@ using UnityEngine;
 public class MC_Controller : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
-    public float speed = 0.1f;
+    public float speed = 3f;
     // Start is called before the first frame update
     void Start()
     {
