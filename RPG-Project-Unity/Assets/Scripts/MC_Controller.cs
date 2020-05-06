@@ -5,13 +5,17 @@ using UnityEngine;
 public class MC_Controller : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
+
     public float speed = 3f;
 
     Facing direction = Facing.DOWN;
+    Vector2 lookDirection;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        lookDirection = new Vector2(0,-1);
     }
 
     // Update is called once per frame
@@ -19,6 +23,8 @@ public class MC_Controller : MonoBehaviour
     {
       float horizontal = Input.GetAxisRaw("Horizontal");
       float vertical = Input.GetAxisRaw("Vertical");
+
+      lookDirection = new Vector2(horizontal, vertical);
 
       speed = 0.1f;
       if (Input.GetKey(KeyCode.LeftShift)) {
@@ -30,6 +36,13 @@ public class MC_Controller : MonoBehaviour
       position.y += speed * vertical;
 
       rigidbody2d.MovePosition(position);
+
+      if (Input.GetKeyDown(KeyCode.X)) {
+        RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, lookDirection, 0.4f, LayerMask.GetMask("NPC"));
+        if (hit.collider != null) {
+          Debug.Log("Raycast has hit " + hit.collider.gameObject);
+        }
+      }
     }
 
     enum Facing
