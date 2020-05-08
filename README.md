@@ -1,7 +1,7 @@
 # RPG
 
 ## Need:
-- [ ] Make a basic movement system
+- [x] Make a basic movement system
 - [ ] Make a basic dialogue system
 - [ ] Add animations to characters by using spritesheets
 - [ ] Add UI
