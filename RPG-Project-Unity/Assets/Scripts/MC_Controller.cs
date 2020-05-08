@@ -25,7 +25,21 @@ public class MC_Controller : MonoBehaviour
       float horizontal = Input.GetAxisRaw("Horizontal");
       float vertical = Input.GetAxisRaw("Vertical");
 
-      lookDirection = new Vector2(horizontal, vertical);
+
+      if (vertical == 1) {
+        lookDirection = Vector2.up;
+      }
+      else if (vertical == -1) {
+        lookDirection = Vector2.down;
+      }
+
+      if (horizontal == 1) {
+        lookDirection = Vector2.right;
+      }
+      else if (horizontal == -1) {
+         lookDirection = Vector2.left;
+       }
+
 
       speed = 0.05f;
       if (Input.GetKey(KeyCode.LeftShift)) {
@@ -41,7 +55,7 @@ public class MC_Controller : MonoBehaviour
       if (Input.GetKeyDown(KeyCode.X)) {
         RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, lookDirection, 0.4f, LayerMask.GetMask("NPC"));
         if (hit.collider != null) {
-          SceneManager.LoadScene("Room2");
+          // SceneManager.LoadScene("Room2");
           Debug.Log("Raycast has hit " + hit.collider.gameObject);
         }
       }
