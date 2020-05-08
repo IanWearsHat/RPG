@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MC_Controller : MonoBehaviour
 {
@@ -26,9 +27,9 @@ public class MC_Controller : MonoBehaviour
 
       lookDirection = new Vector2(horizontal, vertical);
 
-      speed = 0.1f;
+      speed = 0.05f;
       if (Input.GetKey(KeyCode.LeftShift)) {
-        speed = 0.2f;
+        speed = 0.1f;
       }
 
       Vector2 position = rigidbody2d.position;
@@ -40,6 +41,7 @@ public class MC_Controller : MonoBehaviour
       if (Input.GetKeyDown(KeyCode.X)) {
         RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, lookDirection, 0.4f, LayerMask.GetMask("NPC"));
         if (hit.collider != null) {
+          SceneManager.LoadScene("Room2");
           Debug.Log("Raycast has hit " + hit.collider.gameObject);
         }
       }
