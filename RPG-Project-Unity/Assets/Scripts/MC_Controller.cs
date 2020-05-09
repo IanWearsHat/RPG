@@ -9,7 +9,6 @@ public class MC_Controller : MonoBehaviour
 
     public float speed = 3f;
 
-    Facing direction = Facing.DOWN;
     Vector2 lookDirection;
 
     // Start is called before the first frame update
@@ -61,11 +60,5 @@ public class MC_Controller : MonoBehaviour
       }
     }
 
-    enum Facing
-    {
-      UP,
-      RIGHT,
-      DOWN,
-      LEFT
-    }
+
 }
