@@ -4,8 +4,6 @@
 - [ ] Make a basic dialogue system
 - [ ] Add animations to characters by using spritesheets
 - [ ] Add quality things
-  - [ ] Make buttons for a menu
-  - [ ] Make a menu that works
   - [ ] Add settings (volume, window size, etc.)
   - [ ] Add scene transitions (fade out/in)
   - [ ] Add a save and load feature
@@ -15,3 +13,5 @@
 
 ## Completed Objectives:
 - [x] Make it so we can change scenes (ex. change from moving to combat, entering a new area)
+- [x] Make buttons for a menu
+- [x] Make a menu that works
