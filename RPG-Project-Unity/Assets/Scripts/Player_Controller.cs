@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MC_Controller : MonoBehaviour
+public class Player_Controller : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
 
@@ -24,6 +24,17 @@ public class MC_Controller : MonoBehaviour
       float horizontal = Input.GetAxisRaw("Horizontal");
       float vertical = Input.GetAxisRaw("Vertical");
 
+      speed = 6f;
+      if (Input.GetKey(KeyCode.LeftShift)) {
+        speed *= 1.5f;
+      }
+
+      Vector2 position = rigidbody2d.position;
+      position.x += speed * horizontal * Time.deltaTime;
+      position.y += speed * vertical * Time.deltaTime;
+
+      rigidbody2d.MovePosition(position);
+
 
       if (vertical == 1) {
         lookDirection = Vector2.up;
@@ -39,18 +50,7 @@ public class MC_Controller : MonoBehaviour
          lookDirection = Vector2.left;
        }
 
-
-      speed = 0.05f;
-      if (Input.GetKey(KeyCode.LeftShift)) {
-        speed = 0.1f;
-      }
-
-      Vector2 position = rigidbody2d.position;
-      position.x += speed * horizontal;
-      position.y += speed * vertical;
-
-      rigidbody2d.MovePosition(position);
-
+      //interact key should go here as a variable to change in settings
       if (Input.GetKeyDown(KeyCode.X)) {
         RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, lookDirection, 0.4f, LayerMask.GetMask("NPC"));
         if (hit.collider != null) {
