@@ -7,7 +7,7 @@ public class Player_Controller : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
 
-    public float speed = 3f;
+    private float speed;
 
     Vector2 lookDirection;
 
