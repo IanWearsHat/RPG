@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RoomTrigger : MonoBehaviour
 {
-  public int id; //id should be given through the unity editor
+  public int id; //id given in inspector, room number found under BuildSettings
 
   void OnTriggerEnter2D(Collider2D col) {
     SceneManager.LoadScene(id);
