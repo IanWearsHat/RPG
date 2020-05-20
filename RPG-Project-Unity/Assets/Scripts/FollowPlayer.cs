@@ -19,7 +19,8 @@ public class FollowPlayer : MonoBehaviour
         Vector2 playerPosition = player.GetComponent<Rigidbody2D>().position;
 
         Vector2 position = rigidbody2d.position;
-        position = Vector2.Lerp(position, playerPosition, 1f * Time.deltaTime);
+        float distance = Vector2.Distance(position, playerPosition);
+        position = Vector2.Lerp(position, playerPosition, (4f * Time.deltaTime)/distance);
         rigidbody2d.MovePosition(position);
 
     }
