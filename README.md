@@ -4,6 +4,7 @@
 - [ ] Make a basic dialogue system
 - [ ] Add animations to characters by using spritesheets
 - [ ] Add quality things
+  - [ ] Make buttons that don't look like they're default unity buttons
   - [ ] Add settings (volume, window size, etc.)
   - [ ] Add scene transitions (fade out/in)
   - [ ] Add a save and load feature
