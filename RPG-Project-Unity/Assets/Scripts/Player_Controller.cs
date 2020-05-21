@@ -53,8 +53,9 @@ public class Player_Controller : MonoBehaviour
       //interact key should go here as a variable to change in settings
       if (Input.GetKeyDown(KeyCode.X)) {
         RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, lookDirection, 0.4f, LayerMask.GetMask("NPC"));
-        if (hit.collider != null) {
+        if (hit.collider != null && hit.collider.gameObject.layer == 11) {
           // SceneManager.LoadScene("Room2");
+          FindObjectOfType<DialogueManagerScript>().StartDialogue(hit.collider.gameObject);
           Debug.Log("Raycast has hit " + hit.collider.gameObject);
         }
       }
