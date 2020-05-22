@@ -8,33 +8,73 @@ public class DialogueManagerScript : MonoBehaviour
 
     // public Text nameText;
     public Text dialogueText;
-    // Start is called before the first frame update
+    private Queue<string> sentences;
+
+
     void Start()
     {
-
+        sentences = new Queue<string>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-      // if (go) {
-      //   foreach(string output in sentences) {
-      //     Debug.Log(output);
-      //   }
-      //   go = false;
-      // }
-
-    }
 
     public void StartDialogue(GameObject npcObject) {
 
+      sentences.Clear();
+
       NPC npc = npcObject.GetComponent<NPC>();
 
+      foreach (string sentence in npc.sentences) {
+        sentences.Enqueue(sentence);
+      }
       // nameText.text = npc.NPC_name;
-      dialogueText.text = npc.sentences[0];
+
+      DisplayNextSentence();
 
       Debug.Log(npc.NPC_name);
 
+    }
+
+
+    public bool DisplayNextSentence() {
+
+      if (sentences.Count == 0) {
+        EndDialogue();
+        return false;
+      }
+
+      string sentence = sentences.Dequeue();
+      StopAllCoroutines();
+      StartCoroutine(TypeSentence(sentence));
+
+      return true;
+
+    }
+
+
+    IEnumerator TypeSentence(string sentence) {
+      dialogueText.text = "";
+
+      foreach (char letter in sentence.ToCharArray()) {
+        dialogueText.text += letter;
+        yield return null; //1 frame delay
+
+      }
+
+    }
+
+
+    public void EndDialogue() {
+      GameObject all = GameObject.Find("All");
+      Vector2 position = all.transform.position;
+      position.y -= 2;
+      all.transform.position = position;
+
+      GameObject dialogueBackground = GameObject.Find("DialogueBackground");
+      position = dialogueBackground.transform.position;
+      position.y -= 2;
+      dialogueBackground.transform.position = position;
+
+      Debug.Log("Dialogue ended.");
     }
 
 }

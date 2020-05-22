@@ -11,6 +11,8 @@ public class Player_Controller : MonoBehaviour
 
     Vector2 lookDirection;
 
+    bool talking = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,44 +23,70 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      float horizontal = Input.GetAxisRaw("Horizontal");
-      float vertical = Input.GetAxisRaw("Vertical");
+      if (!talking) {
 
-      speed = 6f;
-      if (Input.GetKey(KeyCode.LeftShift)) {
-        speed *= 1.5f;
-      }
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
-      Vector2 position = rigidbody2d.position;
-      position.x += speed * horizontal * Time.deltaTime;
-      position.y += speed * vertical * Time.deltaTime;
+        speed = 6f;
+        if (Input.GetKey(KeyCode.LeftShift)) {
+          speed *= 1.5f;
+        }
 
-      rigidbody2d.MovePosition(position);
+        Vector2 position = rigidbody2d.position;
+        position.x += speed * horizontal * Time.deltaTime;
+        position.y += speed * vertical * Time.deltaTime;
+
+        rigidbody2d.MovePosition(position);
 
 
-      if (vertical == 1) {
-        lookDirection = Vector2.up;
-      }
-      else if (vertical == -1) {
-        lookDirection = Vector2.down;
-      }
+        if (vertical == 1) {
+          lookDirection = Vector2.up;
+        }
+        else if (vertical == -1) {
+          lookDirection = Vector2.down;
+        }
 
-      if (horizontal == 1) {
-        lookDirection = Vector2.right;
-      }
-      else if (horizontal == -1) {
-         lookDirection = Vector2.left;
+        if (horizontal == 1) {
+          lookDirection = Vector2.right;
+        }
+        else if (horizontal == -1) {
+           lookDirection = Vector2.left;
+         }
+
        }
 
       //interact key should go here as a variable to change in settings
       if (Input.GetKeyDown(KeyCode.X)) {
-        RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, lookDirection, 0.4f, LayerMask.GetMask("NPC"));
-        if (hit.collider != null && hit.collider.gameObject.layer == 11) {
-          // SceneManager.LoadScene("Room2");
-          FindObjectOfType<DialogueManagerScript>().StartDialogue(hit.collider.gameObject);
-          Debug.Log("Raycast has hit " + hit.collider.gameObject);
+        if (!talking) {
+          RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, lookDirection, 0.4f, LayerMask.GetMask("NPC"));
+          if (hit.collider != null && hit.collider.gameObject.layer == 11) {
+
+            GameObject all = GameObject.Find("All");
+            Vector2 position = all.transform.position;
+            position.y = GameObject.Find("DialogueCanvas").transform.position.y;
+            all.transform.position = position;
+
+            GameObject dialogueBackground = GameObject.Find("DialogueBackground");
+            position = dialogueBackground.transform.position;
+            position.y = GameObject.Find("DialogueCanvas").transform.position.y - 1.2736f;
+            dialogueBackground.transform.position = position;
+
+
+            FindObjectOfType<DialogueManagerScript>().StartDialogue(hit.collider.gameObject);
+            Debug.Log("Raycast has hit " + hit.collider.gameObject);
+
+            talking = true;
         }
+
       }
+        else if (talking) {
+          talking = FindObjectOfType<DialogueManagerScript>().DisplayNextSentence();
+
+        }
+
+      }
+
     }
 
 
