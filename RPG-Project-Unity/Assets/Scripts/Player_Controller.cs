@@ -6,10 +6,8 @@ using UnityEngine.SceneManagement;
 public class Player_Controller : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
-
-    private float speed;
-
     Vector2 lookDirection;
+    private float speed;
 
     bool talking = false;
 
@@ -61,17 +59,6 @@ public class Player_Controller : MonoBehaviour
         if (!talking) {
           RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position, lookDirection, 0.4f, LayerMask.GetMask("NPC"));
           if (hit.collider != null && hit.collider.gameObject.layer == 11) {
-
-            GameObject all = GameObject.Find("All");
-            Vector2 position = all.transform.position;
-            position.y = GameObject.Find("DialogueCanvas").transform.position.y;
-            all.transform.position = position;
-
-            GameObject dialogueBackground = GameObject.Find("DialogueBackground");
-            position = dialogueBackground.transform.position;
-            position.y = GameObject.Find("DialogueCanvas").transform.position.y - 1.2736f;
-            dialogueBackground.transform.position = position;
-
 
             FindObjectOfType<DialogueManagerScript>().StartDialogue(hit.collider.gameObject);
             Debug.Log("Raycast has hit " + hit.collider.gameObject);

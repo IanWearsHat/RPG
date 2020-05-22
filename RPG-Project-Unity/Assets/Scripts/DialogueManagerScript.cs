@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class DialogueManagerScript : MonoBehaviour
 {
-
-    // public Text nameText;
-    public Text dialogueText;
     private Queue<string> sentences;
 
+    // public Text nameText;
+    public GameObject dialogueCanvas;
+    public Text dialogueText;
+    public GameObject icon;
 
     void Start()
     {
@@ -19,9 +20,12 @@ public class DialogueManagerScript : MonoBehaviour
 
     public void StartDialogue(GameObject npcObject) {
 
+      dialogueCanvas.SetActive(true);
+
       sentences.Clear();
 
       NPC npc = npcObject.GetComponent<NPC>();
+      icon.GetComponent<SpriteRenderer>().sprite = npc.icon;
 
       foreach (string sentence in npc.sentences) {
         sentences.Enqueue(sentence);
@@ -64,17 +68,7 @@ public class DialogueManagerScript : MonoBehaviour
 
 
     public void EndDialogue() {
-      GameObject all = GameObject.Find("All");
-      Vector2 position = all.transform.position;
-      position.y -= 2;
-      all.transform.position = position;
-
-      GameObject dialogueBackground = GameObject.Find("DialogueBackground");
-      position = dialogueBackground.transform.position;
-      position.y -= 2;
-      dialogueBackground.transform.position = position;
-
-      Debug.Log("Dialogue ended.");
+      dialogueCanvas.SetActive(false);
     }
 
 }
