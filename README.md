@@ -1,7 +1,6 @@
 # RPG
 
 ## Current Objectives:
-- [ ] Make a basic dialogue system
 - [ ] Add animations to characters by using spritesheets
 - [ ] Add quality things
   - [ ] Make buttons that don't look like they're default unity buttons
@@ -16,3 +15,4 @@
 - [x] Make buttons for a menu
 - [x] Make a menu that works
 - [x] When moving from room to room, make an efficient room trigger.
+- [x] Make a basic dialogue system
